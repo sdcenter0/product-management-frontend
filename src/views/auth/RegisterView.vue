@@ -16,47 +16,48 @@
         <div class="card-body">
           <h2 class="h2 text-center mb-4">Create new account</h2>
 
-          <AInput class="mb-2"
-                  type="text"
-                  label="Name"
-                  autocomplete="off"
-                  placeholder="Enter name"
-                  :invalid="'name' in validation"
-                  :errors="validation.name"
-                  v-model="data.name" />
+          <form @submit.prevent="register">
+            <AInput class="mb-2"
+                    type="text"
+                    label="Name"
+                    autocomplete="off"
+                    placeholder="Enter name"
+                    :invalid="'name' in validation"
+                    :errors="validation.name"
+                    v-model="data.name" />
 
-          <AInput class="mb-2"
-                  type="email"
-                  label="Email address"
-                  autocomplete="off"
-                  placeholder="your@email.com"
-                  :invalid="'email' in validation"
-                  :errors="validation.email"
-                  v-model="data.email" />
+            <AInput class="mb-2"
+                    type="email"
+                    label="Email address"
+                    autocomplete="off"
+                    placeholder="your@email.com"
+                    :invalid="'email' in validation"
+                    :errors="validation.email"
+                    v-model="data.email" />
 
-          <APassword class="mb-2"
-                     label="Password"
-                     placeholder="Password"
-                     :invalid="'password' in validation"
-                     :errors="validation.password"
-                     v-model="data.password" />
+            <APassword class="mb-2"
+                       label="Password"
+                       placeholder="Password"
+                       :invalid="'password' in validation"
+                       :errors="validation.password"
+                       v-model="data.password" />
 
-          <APassword class="mb-2"
-                     label="Password Confirmation"
-                     placeholder="Password Confirmation"
-                     :invalid="'password_confirmation' in validation"
-                     :errors="validation.password_confirmation"
-                     v-model="data.password_confirmation" />
+            <APassword class="mb-2"
+                       label="Password Confirmation"
+                       placeholder="Password Confirmation"
+                       :invalid="'password_confirmation' in validation"
+                       :errors="validation.password_confirmation"
+                       v-model="data.password_confirmation" />
 
-          <div class="form-footer">
-            <AButton @click.prevent="register"
-                     type="submit"
-                     variant="primary"
-                     :loading="loading"
-                     block>
-              Sign in
-            </AButton>
-          </div>
+            <div class="form-footer">
+              <AButton type="submit"
+                       variant="primary"
+                       :loading="loading"
+                       block>
+                Sign up
+              </AButton>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -106,8 +107,8 @@ const register = async () => {
   api.post('register', data.value)
     .then((response) => {
       authStore.user = response.data.data;
-      
-      router.push({ name: 'home' });
+
+      router.push({ name: 'login' });
     })
     .catch((err) => {
       if (err.response.status === 422) {
